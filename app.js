@@ -2,13 +2,16 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql2');
 const transactionRoutes = require('./app/routes/transactionRoutes');
-const cors = require('cors'); // Import the cors middleware
-require('dotenv').config(); // Load environment variables
+const budgetEntryRoutes = require('./app/routes/budgetEntryRoutes');
+const transactionInputRoutes = require('./app/routes/transactionInputRoutes')
+const cors = require('cors'); 
+const BudgetEntry = require('./app/models/budgetEntryModel');
+require('dotenv').config(); 
 
 const app = express();
 const port = 3001;
 
-// Create a connection pool to the MySQL database
+// connection pool to the MySQL database
 const pool = mysql.createPool({
   host: process.env.DB_HOST || 'localhost',
   user: process.env.DB_USER || 'root',
@@ -33,6 +36,9 @@ pool.query('SELECT 1 + 1', (err, results) => {
 
 // Use transaction routes
 app.use('/api', transactionRoutes);
+app.use('/api', budgetEntryRoutes);
+app.use('/api', transactionInputRoutes);
+
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

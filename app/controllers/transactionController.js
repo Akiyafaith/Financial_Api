@@ -1,11 +1,11 @@
-// financial_api/app/controllers/transactionController.js
 const Transaction = require('../models/transactionModel');
+const Category = require('../models/categoryModel');
 
-// Create a new transaction
+// new transaction
 exports.createTransaction = async (req, res) => {
   try {
-    const { amount, description } = req.body;
-    const newTransaction = await Transaction.create({ amount, description });
+    const { amount, description} = req.body;
+    const newTransaction = await Transaction.create({ amount, description});
     res.json(newTransaction);
   } catch (error) {
     console.error('Error creating transaction:', error.message);
@@ -24,7 +24,7 @@ exports.getAllTransactions = async (req, res) => {
   }
 };
 
-// Get a transaction by ID
+// Get transaction by ID
 exports.getTransactionById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -40,16 +40,17 @@ exports.getTransactionById = async (req, res) => {
   }
 };
 
-// Update a transaction by ID
+// Update transaction by ID
 exports.updateTransaction = async (req, res) => {
   try {
     const { id } = req.params;
-    const { amount, description } = req.body;
+    const { amount, description, category } = req.body;
 
     const transaction = await Transaction.findByPk(id);
     if (transaction) {
       transaction.amount = amount;
       transaction.description = description;
+      transaction.category = category;
       await transaction.save();
       res.json(transaction);
     } else {
@@ -61,7 +62,7 @@ exports.updateTransaction = async (req, res) => {
   }
 };
 
-// Delete a transaction by ID
+// Delete transaction by ID
 exports.deleteTransaction = async (req, res) => {
   try {
     const { id } = req.params;

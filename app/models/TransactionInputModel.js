@@ -1,23 +1,15 @@
 const { DataTypes } = require('sequelize');
 const db = require('../database');
+const Category = require('./categoryModel');
 
-const Transaction = db.define('Transaction', {
-  transaction_id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
+const transactionInput = db.define('transactionInput', {
+  transactionName: {
+    type: DataTypes.STRING,
+    allowNull: false,
   },
   amount: {
     type: DataTypes.FLOAT,
     allowNull: false,
-  },
-  description: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  category_id: {
-    type: DataTypes.INTEGER,
-    allowNull: true, 
   },
   createdAt: {
     type: DataTypes.DATE,
@@ -31,4 +23,4 @@ const Transaction = db.define('Transaction', {
   },
 });
 
-module.exports = Transaction;
+module.exports = transactionInput;

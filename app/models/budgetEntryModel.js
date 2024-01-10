@@ -1,8 +1,8 @@
 const { DataTypes } = require('sequelize');
 const db = require('../database');
 
-const Transaction = db.define('Transaction', {
-  transaction_id: {
+const BudgetEntry = db.define('BudgetEntry', {
+  budget_entry_id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
@@ -11,14 +11,10 @@ const Transaction = db.define('Transaction', {
     type: DataTypes.FLOAT,
     allowNull: false,
   },
-  description: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
   category_id: {
     type: DataTypes.INTEGER,
     allowNull: true, 
-  },
+  }, 
   createdAt: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
@@ -31,4 +27,4 @@ const Transaction = db.define('Transaction', {
   },
 });
 
-module.exports = Transaction;
+module.exports = BudgetEntry;
